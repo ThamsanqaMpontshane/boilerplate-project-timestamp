@@ -23,10 +23,22 @@ app.get("/", function (req, res) {
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
-
+// api endpoint called /api/:date that can take 2020-12-25 or 1451001600000 as a parameter in place of date.
+app.get("/api/:date", function (req, res) {
+  let date = req.params.date;
+  let dateObj = new Date(date);
+  if (dateObj.toString() === "Invalid Date") {
+    dateObj = new Date(parseInt(date));
+  }
+  if (dateObj.toString() === "Invalid Date") {
+    res.json({error: "Invalid Date"});
+  } else {
+    res.json({unix: dateObj.getTime(), utc: dateObj.toUTCString()});
+  }
+})
 
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+var listener = app.listen(process.env.PORT || 3000, function () {
+  console.log('Your app is listening on port ' + 3000);
 });
