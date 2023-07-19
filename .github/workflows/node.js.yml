@@ -29,5 +29,4 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
     - run: npm install
-    - run: nodemon index.js
     - run: node index.js
